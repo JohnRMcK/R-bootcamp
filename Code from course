@@ -1,0 +1,76 @@
+#Basics Review
+
+goog <- c(450, 451, 455, 459, 453) # c() is combine
+msft <- c(230, 225, 232, 234, 240)
+
+stocks <- c(goog,msft)
+stock.matrix <- matrix( stocks, byrow = TRUE, nrow = 2)
+print(stock.matrix)
+
+days <- c("Mon", "Tue", "Wed", "Thu", "Fri")
+stock.names <- c("GOOG", "MSFT")
+
+colnames(stock.matrix) <- days
+rownames(stock.matrix) <- stock.names
+print(stock.matrix)
+
+colSums(stock.matrix)
+rowSums(stock.matrix)
+rowMeans(stock.matrix)
+
+#cbind adds a column
+#rbind adds a new row
+
+FB <- c(90, 98, 120, 111, 115)
+tech.stocks <- rbind(stock.matrix, FB)
+print(tech.stocks)
+avg <- rowMeans(tech.stocks)
+tech.stocks <- cbind(tech.stocks, avg)
+print(tech.stocks)
+tech.stocks[1,]
+tech.stocks[,1]
+tech.stocks[,2:4]
+#above is taking slices of matrix data.
+
+animal <- c('dog', 'cat', 'cat', 'cat', 'dog')
+id <- c(1:5)
+fact.animal <- factor(animal) #this is a nominal factor because it has not ordinal order like temperature does.
+temps <- c('cold', 'hot', 'med', 'cold', 'med')
+factor.temp <- factor(temps, ordered = T, levels = c('cold' , 'med', 'hot'))
+factor.temp
+summary(temps)
+summary(factor.temp)
+
+#now we are going to move on to data frames which will allow us to manipulate and use data of different types.
+days <- c("Mon", "Tue", "Wed", "Thu", "Fri")
+temp <- c(22.2,21,23,24.1,26)
+rain <- c(TRUE, TRUE, FALSE, FALSE, TRUE)
+
+df <- data.frame(days, temp, rain)
+df
+df[1,]
+df[,1] #in this case the levels are sorted alphabetically. 
+df[1:5, c('days','temp')]
+df$days
+subset(df, subset = rain == T)# you do not have to put column strings into quotes here. 
+subset(df, subset = temp >= 23)
+
+#ording a dataframe
+sort.temp <- order(df['temp'])
+sort.temp
+# the above returns the index numbers
+df[sort.temp,]
+df[[2, 'temp']] <- 99.0 #douoble brackets is required for column references
+df[['rain']] #prints as a row or a vecots of values
+df['rain'] #prints as column retursn a dataframe with the one column.
+df$rain #prints as a row
+df[c('temp', 'rain')] #selwects multiple columns. 
+
+new.day <- data.frame( days = 'Sat', temp = 25, rain = FALSE)
+df2 <- rbind(df, new.day)
+df2 #see new added row
+
+weather <- c('good', 'bad', 'fair', 'bad', 'good', 'good')
+df3 <- cbind(df2, weather)
+df3
+                
