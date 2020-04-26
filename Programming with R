@@ -1,1 +1,61 @@
+# &
+# AND operator
+# |
+# OR operator
+# !
+#NOT operator
 
+x <- -10
+y <- 5
+x < 0 & x > -20 #AND requires everything to be TRUE
+# returns TRUE
+x > 0 | x < -1 # OR requires on condition to be TRUE to return T.
+!(x == y)
+#returns true
+df <- mtcars
+df[df$mpg > 20,] # returns subset of data where the MPG for a care meets the condition. 
+df[df$mpg > 20 & df$mpg < 30,]
+
+#subset can also be used.
+subset(df, cyl > 6) # remeber subsets can be assigned to variables. 
+
+#IF, ELSE, AND ELSE IF statements.
+
+if (y == 5){
+  #insert code
+  print('great!')
+}else if(y == 20){
+  print('cool!')
+}else{
+  print('interesting')
+}
+#Write a script that will print "Even Number" if the variable x is an even number, otherwise print "Not Even"
+x <- 20
+if(x%%2==2){
+  print('x is even')
+}else{
+  print('x is odd')
+}
+#Write a script that will print "Even Number" if the variable x is an even number, otherwise print "Not Even"
+df <- data.frame(1:3, 4:6)
+mx <- matrix( c(1:6), nrow=3, ncol=2, byrow = T)
+
+if(is.matrix(df) == T){
+  print(' This is a matrix')
+} else{
+  print('is not a matrix')
+}
+
+#Ex 3: Create a script that given a numeric vector x with a length 3, will print out the elements. You must use if,else if, and else statements for your logic. (This code will be relatively long)
+xx <- c(3,2,8)
+y <- c(1,3,6, 12)
+mx <- matrix( c(1:6), nrow=3, ncol=2, byrow = T)
+length(x)
+if(is.vector(xx) == T){
+  #print('working')  
+  if(length(xx) == 3){
+    print(xx)
+  }else{
+    print('Vector to loog or too short')
+  }
+}else{print('Is not is not a vector')}
