@@ -59,3 +59,78 @@ if(is.vector(xx) == T){
     print('Vector to loog or too short')
   }
 }else{print('Is not is not a vector')}
+#
+#
+#While loops
+4%%2
+x<-0
+while( x < 10 ){
+  if(x%%2 == 0){
+    print(x)
+    print("is even")
+  }
+  x <- x +1
+}
+#
+#
+#For loop
+v<- c(1,2,3)
+for (variable in v){
+  print(variable)
+}
+mat <- matrix(1:25, nrow = 5)
+for (row in 1:nrow(mat)){
+  for(col in 1:ncol(mat)){
+    print(paste('The element at row:', row, 'and col:', col, 'is',mat[row,col]))
+  }
+}
+#
+#
+#Function example
+name.of.function <- function(input1, input2, input3){
+  result <- input1 + input2 - input3
+  return(result)
+}#example of function syntax. 
+
+
+name.func <- function(name = 'Bill'){
+  print(paste('hello',name))
+}
+name.func('John')
+name.func()#uses the default if input is not specified. 
+
+name.func1 <- function(name = 'Bill'){
+  print.name <- paste('Hello',name)
+  return(print.name)
+}
+zzz<-name.func1('Ted')
+print(zzz)
+
+#Ex 3: Create a function that accepts two arguments, an integer and a vector of integers. It returns the count of the number of occurences of the integer in the input vector.
+
+v <- c(2,2,3)
+funct2 <- num_count <- function(num,v){
+  count = 0
+  for (x in v){
+    if (x == num){
+      count = count + 1
+    }
+  }
+  return(count)
+}
+funct2(x,v)
+
+#Ex 4: We want to ship bars of aluminum. We will create a function that accepts an integer representing the requested kilograms of aluminum for the package to be shipped. To fullfill these order, we have small bars (1 kilogram each) and big bars (5 kilograms each). Return the least number of bars needed.
+
+alum.func <- function(weight){
+  if(weight%%1 == 0){
+  five.kg <- weight/5
+  one.kg <- weight%%5
+  print(paste('Please ship', as.integer(five.kg), 'x 5kg bars, and', one.kg,'x 1kg bars'))
+  }else { print('Error please input an integer that is a whole number.')
+  
+}
+}
+w <- as.integer(27)
+alum.func(w)
+
