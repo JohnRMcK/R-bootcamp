@@ -1,0 +1,38 @@
+#Data manipulation with dplyr and tiydr
+library(dplyr)
+library(tidyr)
+install.packages('nycflights13')
+library(nycflights13)
+
+head(flights)
+
+#filter and slice
+filter(flights, month == 11, day == 3, carrier == 'AA' )
+#the notation is much neater that the subset code.
+slice(flights, 1:10)#allows up so select rows by position
+
+#arrange will reorder rows
+head(arrange(flights, year, month, day, desc(arr_time)))
+
+#select allows you to quickly select column subsets.
+select(flights, carrier)
+
+#rename allows the quick rename of columns. 
+rename(flights, airline_carrier = carrier) #syntax is new name = oldname
+
+#distict allows us to select the unique values ina column
+distinct(flights, carrier)
+#mutate
+head(mutate(flights, new_col = arr_delay - dep_delay))
+transmute(flights, morning_flight = dep_time > 1200 )
+#transmute can be used instead of mutate but only returns the new col. 
+#note the greater than used in the transmute example.
+
+#summarise allows us to quicky collapse dataframes into single rows. it is similar the aggregate function in base r or the group by function in SQL.
+summarise(flights, avg_air_time = mean(air_time, na.rm = TRUE))
+
+#sample_n and sample_frac allow you to take a random slection of rows from you dataframe.
+sample(flights, 10)
+sample_frac(flights, .01)
+
+#dplyer also allows for the %>% pipe operator which allows for multipule of the above to be applied in neat order. 
