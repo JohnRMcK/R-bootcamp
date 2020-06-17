@@ -33,5 +33,5 @@ print(ggplot(data = df, aes(x=wt, y = mpg))+ geom_point(aes(size = factor(cyl)))
 print(ggplot(data = df, aes(x=wt, y = mpg))+ geom_point(aes(shape = factor(cyl), size = 4, color = hp)) + scale_color_gradient(low = "blue", high = "red"))
 #color hex.com is is a good resource
 
-
+#plotly can be used to make your ggplot charts interactive. 
       
