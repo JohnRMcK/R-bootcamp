@@ -1,0 +1,37 @@
+#Data visualization
+library(ggplot2)
+library(ggplot2movies)
+#the three basic layers of a ggplot visualization is the data, aesthetics, and geometrics
+summary(mtcars)
+plot <- ggplot(data=mtcars, aes(x=mpg, y=hp)) + geom_point()
+plot
+
+#Next three layers are facets, statistics amd coordinates. 
+#facets allow us to put multipule plots on a single canvas.
+plot + facet_grid(cyl~.)
+#
+plot + facet_grid(cyl~.)+stat_smooth()
+#coordinates layer allow us to play with the x and y axis.
+plot + facet_grid(cyl~.)+stat_smooth() + coord_cartesian(xlim = c(20,25))
+#finally them can further adjust color palettes, ridlines and fonts.
+plot + facet_grid(cyl~.)+stat_smooth() + coord_cartesian(xlim = c(20,25)) + theme_bw()
+
+#you can find lots of ggplot cheat sheets
+
+#histograms in ggplots
+print(ggplot(movies, aes (x = rating)) 
+      + geom_histogram(binwidth = 0.5, color = "red", fill = "white")
+      + ggtitle("Movie Rating"))
+print(ggplot(movies, aes (x = rating)) 
+      + geom_histogram(binwidth = 0.1, aes(fill = ..count..))
+      + ggtitle("Movie Rating"))
+
+#scatter plots
+df <- mtcars
+head(df)
+print(ggplot(data = df, aes(x=wt, y = mpg))+ geom_point(aes(size = factor(cyl))))
+print(ggplot(data = df, aes(x=wt, y = mpg))+ geom_point(aes(shape = factor(cyl), size = 4, color = hp)) + scale_color_gradient(low = "blue", high = "red"))
+#color hex.com is is a good resource
+
+
+      
