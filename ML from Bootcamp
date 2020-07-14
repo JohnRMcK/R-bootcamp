@@ -1,0 +1,72 @@
+#some misc ,pdels from the bootcamp.
+library(e1071)
+kernels can be linear, ploynomial,radial or sigmoid, by default it will be radial. 
+steve says if you have time for an SVM then you should do a Neural network.
+
+model <- svm(price ~ . , data = df)
+pred.values <- predict(model, test)
+table(pred.values, df$price)
+
+Tuning a SVM:
+-cost value alloes youo to have a soft margin. where the svm will allow some values to be placed on the wrong side of the soft margin
+- the gamma figure has to do with the kernel trick. if gamma is large than the variance between support vecotrs is small. Models with high gamma leads to high bias in low variance models and vice versa. 
+
+tune.results <- tune(svm, train.x = train, train.y = df$price, kernel = 'radial', ranges = list(cost = c(0.1,1,10), gamma = c(0.5,1,2))) 
+# ranges is where you put in the range of cost and gamma values you want to tune to.
+summary(tune.results) 
+
+#svm example 2
+library(caTools)
+set.seed(101)
+sample <- sample.split(loans$not.fully.paid), 0.7)
+train <- subset(loans, sample == TRUE)
+test <- subset(loans, sample == FALSE)
+library(e1071)
+model <- svm(not.fully.paid ~., data = train)
+print(summary(model))
+predicted.values <- predict(model, test[1:13]) #exclude actual y value
+table(predicted.values, test$not.fully.paid)#results were bad so we need to tune.
+tuned.results <- tune(svm, train.x = not.fully.paid~.,data = train, kernel = 'radial', ranges = list(cost =c(100,200), gamma = c(0.1,1)))# this differs slightly from the other way to tune. 
+
+print(summary(tuned.results))
+#this will show you the optimal cost and gamma for the model. 
+# then run the model with the optimal cost and gamma, predict again and check the confusion matrix. 
+
+
+#kmeans
+Means.model <- kmeans(df, 3, nstart = 20)#3 is the number of clusters
+ table(means.model$cluster, df$targetvar)
+#table will not work in real unlabeled data. 
+
+library(cluster)#allows you to visualize your clusters
+clusplot   (df, meansmodel$cluster)#your labled df cluster would not be able to be plotted in a real problem. 
+
+
+#nural net
+libray(mass)
+head(Boston)
+data <- Boston
+#we need to preprocess and then install the Nural network library.
+maxs <- apply(data, 2, max)
+maxs
+mins < apply(data,2, min)
+mins
+scaled.data <- scale(data, center=mins, scale = maxs-mins)#this will normalize the data
+scaled <- as.data.frame(scaled.data)
+
+library(caTools)
+split <- sample.split(scaled$medv, splitratio = 0.7)
+train <- subset(scaled, sample == TRUE)
+test <- subset(scaled, sample == FALSE) 
+
+library(neuralnet)
+
+n <- names(train)
+f <- as.formula(paste("medv ~", paste(n[!n %in%" medv], collapse = " + ")))
+#cannot use the dot function for a neural net. 
+nn <- neuralnet(f, data = train, hidden = c(5,3), linear.output = TRUE)#first hidden layer of 5 neurons and the second of 3. #output would be false if it was classification. 
+
+predicted.nn.valules <- compute(nn, test[1:13])#drop label.
+
+true.predictions <- predicted.nn.values$net.result * (max(data$medv) - min(data$medv))+min(data$medv) #scales back the predictions.
+
